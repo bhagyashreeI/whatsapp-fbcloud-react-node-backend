@@ -1,3 +1,3 @@
 module.exports = {
-  url: "mongodb+srv://bhagyashreerahile:R8miXVIQYoJdbJBW@cluster0.j6taxp2.mongodb.net/sample_airbnb?retryWrites=true&w=majority"
+  url: `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`
 };
