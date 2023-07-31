@@ -24,8 +24,14 @@ exports.create = (req, res) => {
     formdata.append("messaging_product", "whatsapp");
     formdata.append("to", req.body.mobileNumber);
     formdata.append("type", req.body.type);
+    if(req.body.type == 'templete')
     formdata.append("template", "{ \"name\": \"hello_world\",\"language\":\n{ \"code\": \"en_US\" }}");
-
+    if(req.body.type == 'text'){
+        formdata.append("recipient_type", 'individual');
+        formdata.append("text","{\"preview_url\": false,\"body\": \"MESSAGE_CONTENT\"}");
+        
+    }
+    
 
     axios({
         method: "POST",
@@ -36,7 +42,7 @@ exports.create = (req, res) => {
         },
 
     }).then(function (response) {
-        //console.log("response", response);
+        console.log("response", response.res);
         // Create a whatsappmessage
         const whatsappmessage = new Whatsappmessage({
             wa_id: req.body.mobileNumber,

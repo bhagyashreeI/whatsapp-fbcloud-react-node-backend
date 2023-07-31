@@ -24,9 +24,25 @@ exports.create = (req,res) => {
 
 };
 
+exports.getContact = (req, res) => {
+    const id = req.query.q;
+
+    Whatsappcontact.findById(id).populate("messages")
+        .then(data => {
+            if (!data)
+                res.status(404).send({ message: "Not found Tutorial with id " + id });
+            else res.send(data);
+        })
+        .catch(err => {
+            res
+                .status(500)
+                .send({ message: "Error retrieving Tutorial with id=" + id });
+        });
+};
+
 exports.findAll = (req,res) => {
     const name = req.query.name;
-  var condition = name ? { name: { $regex: new RegExp(title), $options: "i" } } : {};
+    var condition = name ? { name: { $regex: new RegExp(name), $options: "i" } } : {};
 
   Whatsappcontact.find(condition)
     .then(data => {
